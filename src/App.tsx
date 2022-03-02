@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { AddNewItem } from "./AddNewItem";
 import "./App.css";
 import { Card } from "./Card";
 import { Column } from "./Column";
@@ -18,6 +19,10 @@ const App: FC = () => {
       <Column text={"Done"}>
         <Card text={"Begin to use static typing"} />
       </Column>
+      <AddNewItem
+        toggleButtonText="+ Add another list"
+        onAdd={(e) => console.log(e)}
+      />
     </AppContainer>
   );
 };

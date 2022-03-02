@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { NewItemForm } from "./NewItemForm";
 import { AddItemButton } from "./styles";
 
 interface AddNewItemProps {
@@ -11,8 +12,13 @@ const AddNewItem: FC<AddNewItemProps> = (props) => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const { onAdd, toggleButtonText, dark } = props;
 
+  const handleOnAdd = (text: string) => {
+    onAdd(text);
+    setShowForm(false);
+  };
+
   if (showForm) {
-    // We show item creation form here
+    return <NewItemForm onAdd={handleOnAdd} />;
   }
 
   return (
