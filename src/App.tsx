@@ -19,9 +19,11 @@ const App: FC = () => {
       <Column text={"Done"}>
         <Card text={"Begin to use static typing"} />
       </Column>
+
       <AddNewItem
         toggleButtonText="+ Add another list"
         onAdd={(e) => console.log(e)}
+        dark={false}
       />
     </AppContainer>
   );
