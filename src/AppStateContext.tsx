@@ -69,7 +69,8 @@ export const useAppState = () => {
 
 type Action =
   | { type: "ADD_LIST"; payload: string }
-  | { type: "ADD_TASK"; payload: { task: string; taskId: string } };
+  | { type: "ADD_TASK"; payload: { task: string; taskId: string } }
+  | { type: "MOVE_LIST"; payload: { dragIndex: number; hoverIndex: number } };
 
 const appStateReducer = (state: AppState, action: Action) => {
   switch (action.type) {
@@ -92,6 +93,10 @@ const appStateReducer = (state: AppState, action: Action) => {
         text: action.payload.task,
       });
 
+      return { ...state };
+    }
+    case "MOVE_LIST": {
+      const { dragIndex, hoverIndex } = action.payload;
       return { ...state };
     }
     default:
