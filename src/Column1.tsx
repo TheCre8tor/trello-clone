@@ -1,12 +1,12 @@
-import React, { FC, useRef } from "react";
-import { AddNewItem } from "./AddNewItem";
+import React, { useRef, FC } from "react";
 import { ColumnContainer, ColumnTitle } from "./styles";
 import { useAppState } from "./AppStateContext";
 import { Card } from "./Card";
+import { AddNewItem } from "./AddNewItem";
 import { useItemDrag } from "./useItemDrag";
 import { useDrop } from "react-dnd";
 import { DragItem } from "./DragItem";
-import { isHidden } from "./utils/isHidden";
+// import { isHidden } from "./utils/isHidden"
 
 interface ColumnProps {
   id: string;
@@ -14,24 +14,22 @@ interface ColumnProps {
   index: number;
 }
 
-const Column: FC<ColumnProps> = ({ text, index, id }) => {
+export const Column: FC<ColumnProps> = ({ text, index, id }) => {
   const { state, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: "COLUMN",
     hover(item: DragItem) {
-      if (item.type === "COLUMN") {
-        const dragIndex = item.index;
-        const hoverIndex = index;
+      const dragIndex = item.index;
+      const hoverIndex = index;
 
-        if (dragIndex === hoverIndex) {
-          return;
-        }
-
-        dispatch({ type: "MOVE_LIST", payload: { dragIndex, hoverIndex } });
-        item.index = hoverIndex;
+      if (dragIndex === hoverIndex) {
+        return;
       }
+
+      dispatch({ type: "MOVE_LIST", payload: { dragIndex, hoverIndex } });
+      item.index = hoverIndex;
     },
   });
 
@@ -40,10 +38,7 @@ const Column: FC<ColumnProps> = ({ text, index, id }) => {
   drag(drop(ref));
 
   return (
-    <ColumnContainer
-      ref={ref}
-      isHidden={isHidden(state.draggedItem, "COLUMN", id)}
-    >
+    <ColumnContainer ref={ref}>
       <ColumnTitle>{text}</ColumnTitle>
 
       {state.lists[index].tasks.map((task) => (
@@ -60,5 +55,3 @@ const Column: FC<ColumnProps> = ({ text, index, id }) => {
     </ColumnContainer>
   );
 };
-
-export { Column };

@@ -10,16 +10,6 @@ export const AppContainer = styled.div`
   background-color: #3179ba;
 `;
 
-export const ColumnContainer = styled.div`
-  flex-grow: 0;
-  width: 300px;
-  min-height: 40px;
-  margin-right: 20px;
-  padding: 8px 8px;
-  background-color: #ebecf0;
-  border-radius: 3px;
-`;
-
 export const ColumnTitle = styled.div`
   padding: 6px 16px 12px;
   font-weight: bold;
@@ -80,4 +70,23 @@ export const NewItemInput = styled.input`
   margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
   width: 100%;
+`;
+
+interface DragPreviewContainerProps {
+  isHidden?: boolean;
+}
+
+export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+  opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
+`;
+
+// ColumnContainer extends DragPreviewContainer component
+export const ColumnContainer = styled(DragPreviewContainer)`
+  flex-grow: 0;
+  width: 300px;
+  min-height: 40px;
+  margin-right: 20px;
+  padding: 8px 8px;
+  background-color: #ebecf0;
+  border-radius: 3px;
 `;

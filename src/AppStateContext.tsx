@@ -5,7 +5,9 @@ import {
   useReducer,
 } from "react";
 import { v4 as uuid } from "uuid";
+import { moveItem } from "./moveItem";
 import { findItemIndexById } from "./utils/findItemIndexById";
+import { DragItem } from "./DragItem";
 
 const AppStateContext = createContext<AppStateContextProps>(
   {} as AppStateContextProps
@@ -34,6 +36,7 @@ const appData: AppState = {
       tasks: [{ id: "c3", text: "Begin to use static typing" }],
     },
   ],
+  draggedItem: undefined,
 };
 
 export interface Task {
@@ -49,6 +52,7 @@ export interface List {
 
 export interface AppState {
   lists: List[];
+  draggedItem: DragItem | undefined;
 }
 
 export const AppStateProvider = ({ children }: PropsWithChildren<{}>) => {
@@ -70,7 +74,8 @@ export const useAppState = () => {
 type Action =
   | { type: "ADD_LIST"; payload: string }
   | { type: "ADD_TASK"; payload: { task: string; taskId: string } }
-  | { type: "MOVE_LIST"; payload: { dragIndex: number; hoverIndex: number } };
+  | { type: "MOVE_LIST"; payload: { dragIndex: number; hoverIndex: number } }
+  | { type: "SET_DRAGGED_ITEM"; payload: DragItem | undefined };
 
 const appStateReducer = (state: AppState, action: Action) => {
   switch (action.type) {
@@ -97,7 +102,12 @@ const appStateReducer = (state: AppState, action: Action) => {
     }
     case "MOVE_LIST": {
       const { dragIndex, hoverIndex } = action.payload;
+      state.lists = moveItem(state.lists, dragIndex, hoverIndex);
+
       return { ...state };
+    }
+    case "SET_DRAGGED_ITEM": {
+      return { ...state, draggedItem: action.payload };
     }
     default:
       return state;
