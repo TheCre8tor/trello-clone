@@ -36,6 +36,8 @@ const Column: FC<ColumnProps> = ({ text, index, id, isPreview }) => {
     },
   });
 
+  console.log(state);
+
   const { drag } = useItemDrag({ type: "COLUMN", id, index, text });
 
   drag(drop(ref));
