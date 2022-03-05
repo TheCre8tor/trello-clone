@@ -39,6 +39,8 @@ const Column: FC<ColumnProps> = ({ text, index, id }) => {
 
   drag(drop(ref));
 
+  console.log(isHidden(state.draggedItem, "COLUMN", id));
+
   return (
     <ColumnContainer
       ref={ref}

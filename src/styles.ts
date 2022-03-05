@@ -90,3 +90,13 @@ export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #ebecf0;
   border-radius: 3px;
 `;
+
+export const CustomDragLayerContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+`;
