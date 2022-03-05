@@ -20,7 +20,7 @@ const Column: FC<ColumnProps> = ({ text, index, id, isPreview }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
-    accept: "COLUMN",
+    accept: ["COLUMN", "CARD"],
     hover(item: DragItem) {
       if (item.type === "COLUMN") {
         const dragIndex = item.index;
@@ -32,6 +32,23 @@ const Column: FC<ColumnProps> = ({ text, index, id, isPreview }) => {
 
         dispatch({ type: "MOVE_LIST", payload: { dragIndex, hoverIndex } });
         item.index = hoverIndex;
+      } else {
+        const dragIndex = item.index;
+        const hoverIndex = 0;
+        const sourceColumn = item.columnId;
+        const targetColumn = id;
+
+        if (sourceColumn === targetColumn) {
+          return;
+        }
+
+        dispatch({
+          type: "MOVE_TASK",
+          payload: { dragIndex, hoverIndex, sourceColumn, targetColumn },
+        });
+
+        item.index = hoverIndex;
+        item.columnId = targetColumn;
       }
     },
   });
@@ -50,8 +67,14 @@ const Column: FC<ColumnProps> = ({ text, index, id, isPreview }) => {
     >
       <ColumnTitle>{text}</ColumnTitle>
 
-      {state.lists[index].tasks.map((task) => (
-        <Card key={task.id} text={task.text} />
+      {state.lists[index].tasks.map((task, idx) => (
+        <Card
+          id={task.id}
+          columnId={id}
+          text={task.text}
+          key={task.id}
+          index={idx}
+        />
       ))}
 
       <AddNewItem

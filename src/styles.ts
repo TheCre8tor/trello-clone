@@ -15,16 +15,6 @@ export const ColumnTitle = styled.div`
   font-weight: bold;
 `;
 
-export const CardContainer = styled.div`
-  margin-bottom: 0.5rem;
-  padding: 0.5rem 1rem;
-  max-width: 300px;
-  background-color: #fff;
-  cursor: pointer;
-  border-radius: 3px;
-  box-shadow: #091e4240 0px 1px 0px 0px;
-`;
-
 interface AddItemButtonProps {
   dark?: boolean;
 }
@@ -80,6 +70,16 @@ interface DragPreviewContainerProps {
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
   opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
   transform: ${(props) => (props.isPreview ? "rotate(5deg)" : undefined)};
+`;
+
+export const CardContainer = styled(DragPreviewContainer)`
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  max-width: 300px;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: #091e4240 0px 1px 0px 0px;
 `;
 
 // ColumnContainer extends DragPreviewContainer component
