@@ -13,7 +13,12 @@ export const CustomDragLayer: FC = () => {
   return isDragging ? (
     <CustomDragLayerContainer>
       <div style={getItemStyles(currentOffset)}>
-        <Column id={item.id} text={item.text} index={item.index} />
+        <Column
+          id={item.id}
+          text={item.text}
+          index={item.index}
+          isPreview={true}
+        />
       </div>
     </CustomDragLayerContainer>
   ) : null;
@@ -27,7 +32,7 @@ function getItemStyles(currentOffset: XYCoord | null): CSSProperties {
   }
 
   const { x, y } = currentOffset;
-  const transform = `transform(${x}px, ${y}px)`;
+  const transform = `translate(${x}px, ${y}px)`;
 
   return {
     transform,

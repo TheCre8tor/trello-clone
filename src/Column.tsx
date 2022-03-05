@@ -44,6 +44,7 @@ const Column: FC<ColumnProps> = ({ text, index, id, isPreview }) => {
     <ColumnContainer
       ref={ref}
       isHidden={isHidden(isPreview, state.draggedItem, "COLUMN", id)}
+      isPreview={isPreview}
     >
       <ColumnTitle>{text}</ColumnTitle>
 

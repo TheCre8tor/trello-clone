@@ -14,7 +14,13 @@ const App: FC = () => {
       <CustomDragLayer />
 
       {state.lists.map((list, idx) => (
-        <Column key={list.id} id={list.id} text={list.text} index={idx} />
+        <Column
+          isPreview={false}
+          key={list.id}
+          id={list.id}
+          text={list.text}
+          index={idx}
+        />
       ))}
 
       <AddNewItem
