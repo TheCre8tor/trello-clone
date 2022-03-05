@@ -12,9 +12,10 @@ interface ColumnProps {
   id: string;
   text: string;
   index: number;
+  isPreview?: boolean;
 }
 
-const Column: FC<ColumnProps> = ({ text, index, id }) => {
+const Column: FC<ColumnProps> = ({ text, index, id, isPreview }) => {
   const { state, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -39,12 +40,10 @@ const Column: FC<ColumnProps> = ({ text, index, id }) => {
 
   drag(drop(ref));
 
-  console.log(isHidden(state.draggedItem, "COLUMN", id));
-
   return (
     <ColumnContainer
       ref={ref}
-      isHidden={isHidden(state.draggedItem, "COLUMN", id)}
+      isHidden={isHidden(isPreview, state.draggedItem, "COLUMN", id)}
     >
       <ColumnTitle>{text}</ColumnTitle>
 
